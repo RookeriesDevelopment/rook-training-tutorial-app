@@ -57,7 +57,7 @@ class AuthRepository(private val rm: RM) {
     fun logOut(onFinish: (Boolean) -> Unit) {
         rm.deleteUserFromDB(true) { deleteUserResponse -> // Delete user data
             if (deleteUserResponse.isSuccess) {
-                rm.doLogoutToDatabase() { deleteDataResponse -> // Delete all data
+                rm.doLogoutToDatabase { deleteDataResponse -> // Delete all data
                     onFinish(deleteDataResponse.isSuccess)
                 }
             } else {
