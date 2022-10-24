@@ -19,6 +19,10 @@ class RMViewModelFactory(
             return UserViewModel(rmServiceLocator.userRepository) as T
         }
 
+        if (modelClass.isAssignableFrom(TrainingTypeViewModel::class.java)) {
+            return TrainingTypeViewModel(rmServiceLocator.trainingTypeRepository) as T
+        }
+
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
