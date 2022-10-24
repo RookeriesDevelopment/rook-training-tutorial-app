@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="10dp">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:orientation="horizontal"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        app:drawableTint="?attr/colorControlNormal"
+        tools:text="@tools:sample/lorem" />
+</com.google.android.material.card.MaterialCardView>
