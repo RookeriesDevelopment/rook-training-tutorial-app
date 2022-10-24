@@ -10,4 +10,10 @@
     <string name="training_types">Training types</string>
     <string name="there_was_an_error">There was an error</string>
     <string name="retry">Retry</string>
+    <string name="grant_permissions">Grant permissions</string>
+    <string name="permissions_are_needed_for_some_features">Permissions are needed for some features</string>
+    <string name="location_permissions_are_required">Location permissions are required</string>
+    <string name="bluetooth_permissions_are_required">Bluetooth permissions are required</string>
+    <string name="gps_is_required">GPS is required</string>
+    <string name="bluetooth_is_required">Bluetooth is required</string>
 </resources>
