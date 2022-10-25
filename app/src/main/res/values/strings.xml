@@ -16,4 +16,5 @@
     <string name="bluetooth_permissions_are_required">Bluetooth permissions are required</string>
     <string name="gps_is_required">GPS is required</string>
     <string name="bluetooth_is_required">Bluetooth is required</string>
+    <string name="no_trainings_types_available">No trainings types available</string>
 </resources>

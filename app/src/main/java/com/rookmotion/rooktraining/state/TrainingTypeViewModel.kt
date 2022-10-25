@@ -13,6 +13,10 @@ class TrainingTypeViewModel(
     private val _trainingTypeState = MutableLiveData<TrainingTypeState>()
     val trainingTypeState: LiveData<TrainingTypeState> get() = _trainingTypeState
 
+    init {
+        getTrainingTypes()
+    }
+
     fun getTrainingTypes() {
         _trainingTypeState.value = TrainingTypeState.Loading
 
