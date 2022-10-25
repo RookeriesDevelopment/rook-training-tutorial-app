@@ -4,16 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import com.rookmotion.rooktraining.R
 import com.rookmotion.rooktraining.databinding.ActivityHomeBinding
 import com.rookmotion.rooktraining.state.RMViewModelFactory
 import com.rookmotion.rooktraining.state.UserViewModel
 import com.rookmotion.rooktraining.ui.trainingtype.TrainingTypeActivity
 import com.rookmotion.rooktraining.utils.rmLocator
+import com.rookmotion.rooktraining.utils.toastShort
+import com.rookmotion.utils.sdk.permissions.BluetoothManager
+import com.rookmotion.utils.sdk.permissions.LocationManager
+import com.rookmotion.utils.sdk.permissions.PermissionsManager
 import timber.log.Timber
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+
+    private val permissionsManager = PermissionsManager()
+    private val locationManager = LocationManager()
+    private val bluetoothManager = BluetoothManager()
 
     private val userViewModel by viewModels<UserViewModel> { RMViewModelFactory(rmLocator) }
 
@@ -21,7 +31,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         initPermissions()
         initState()
@@ -31,8 +40,83 @@ class HomeActivity : AppCompatActivity() {
         userViewModel.syncIndexes()
     }
 
-    private fun initPermissions() {
+    override fun onDestroy() {
+        permissionsManager.onDestroy()
+        locationManager.onDestroy()
+        bluetoothManager.onDestroy()
 
+        super.onDestroy()
+    }
+
+    private fun initPermissions() {
+        permissionsManager.registerLocationPermissionsListener(
+            componentActivity = this,
+            onAllowed = { checkPermissions() },
+            onDenied = { toastShort(getString(R.string.location_permissions_are_required)) }
+        )
+
+        permissionsManager.registerBluetoothPermissionsListener(
+            componentActivity = this,
+            onAllowed = { checkPermissions() },
+            onDenied = { toastShort(getString(R.string.bluetooth_permissions_are_required)) }
+        )
+
+        locationManager.registerEnableListener(
+            componentActivity = this,
+            onSuccess = { checkPermissions() },
+            onFailure = { toastShort(getString(R.string.gps_is_required)) }
+        )
+
+        bluetoothManager.registerEnableListener(
+            componentActivity = this,
+            onSuccess = { checkPermissions() },
+            onFailure = { toastShort(getString(R.string.bluetooth_is_required)) }
+        )
+
+        checkPermissions()
+    }
+
+    private fun checkPermissions() {
+        val locationPermission = permissionsManager.hasLocationPermissions(this)
+        val bluetoothPermission = permissionsManager.hasBluetoothPermissions(this)
+        val gpsIsOn = locationManager.isEnabled(this)
+        val bluetoothIsOn = bluetoothManager.isEnabled(this)
+
+        if (locationPermission) {
+            if (bluetoothPermission) {
+                if (gpsIsOn) {
+                    if (bluetoothIsOn) {
+                        enablePermissionsScreens()
+                    } else {
+                        disablePermissionsScreens()
+                        bluetoothManager.requestEnable()
+                    }
+                } else {
+                    disablePermissionsScreens()
+                    locationManager.requestEnable()
+                }
+            } else {
+                disablePermissionsScreens()
+                permissionsManager.requestBluetoothPermissions()
+            }
+        } else {
+            disablePermissionsScreens()
+            permissionsManager.requestLocationPermissions()
+        }
+    }
+
+    private fun enablePermissionsScreens() {
+        binding.permissionsWarning.isVisible = false
+        binding.grantPermissions.isVisible = false
+
+        binding.individualTraining.isEnabled = true
+    }
+
+    private fun disablePermissionsScreens() {
+        binding.permissionsWarning.isVisible = true
+        binding.grantPermissions.isVisible = true
+
+        binding.individualTraining.isEnabled = false
     }
 
     private fun initState() {
@@ -47,6 +131,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initActions() {
+        binding.grantPermissions.setOnClickListener { checkPermissions() }
+
         binding.individualTraining.setOnClickListener {
             startActivity(Intent(this, TrainingTypeActivity::class.java))
         }
