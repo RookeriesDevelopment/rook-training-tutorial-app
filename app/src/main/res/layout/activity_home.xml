@@ -70,5 +70,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/individual_training" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sensor_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/sensor_scanner" />
+
     </LinearLayout>
 </ScrollView>

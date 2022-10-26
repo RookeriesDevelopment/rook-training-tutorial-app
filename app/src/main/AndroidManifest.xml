@@ -66,5 +66,8 @@
         <activity
             android:name=".ui.trainingtype.TrainingTypeActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.scanner.SensorScannerActivity"
+            android:exported="false" />
     </application>
 </manifest>

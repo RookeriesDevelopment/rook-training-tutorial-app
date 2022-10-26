@@ -17,4 +17,15 @@
     <string name="gps_is_required">GPS is required</string>
     <string name="bluetooth_is_required">Bluetooth is required</string>
     <string name="no_trainings_types_available">No trainings types available</string>
+    <string name="touch_to_connect">Touch to connect</string>
+    <string name="sensor_scanner">Sensor scanner</string>
+    <string name="unknown_sensor">Unknown sensor</string>
+    <string name="connected">Connected</string>
+    <string name="connected_to_placeholder">Connected to: %1$s</string>
+    <string name="sensor_linked">Sensor was linked to user</string>
+    <string name="error_internal_bluetooth">Internal bluetooth error</string>
+    <string name="error_already_scanning">The device is already scanning</string>
+    <string name="error_not_supported">This device does not support BLE scanning</string>
+    <string name="error_no_resources">Device\'s bluetooth is overloaded</string>
+    <string name="error_too_much_scans">Scanning to frecuently, bluetooth is overloaded</string>
 </resources>
