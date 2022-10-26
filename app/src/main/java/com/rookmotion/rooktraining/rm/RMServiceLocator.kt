@@ -8,6 +8,7 @@ import com.rookmotion.kotlin.sdk.data.remote.ApiLogType
 import com.rookmotion.kotlin.sdk.data.remote.RMApiSettings
 import com.rookmotion.rooktraining.BuildConfig
 import com.rookmotion.rooktraining.data.repository.AuthRepository
+import com.rookmotion.rooktraining.data.repository.SensorRepository
 import com.rookmotion.rooktraining.data.repository.TrainingTypeRepository
 import com.rookmotion.rooktraining.data.repository.UserRepository
 
@@ -32,4 +33,5 @@ class RMServiceLocator(context: Context) {
     val authRepository by lazy { AuthRepository(rm) }
     val userRepository by lazy { UserRepository(rm) }
     val trainingTypeRepository by lazy { TrainingTypeRepository(rm) }
+    val sensorRepository by lazy { SensorRepository(rm) }
 }
