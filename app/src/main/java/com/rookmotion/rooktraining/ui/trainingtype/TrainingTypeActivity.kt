@@ -35,6 +35,8 @@ class TrainingTypeActivity : AppCompatActivity() {
             }
         }
 
+        binding.data.setHasFixedSize(true)
+
         binding.error.errorRetry.setOnClickListener { trainingTypeViewModel.getTrainingTypes() }
     }
 

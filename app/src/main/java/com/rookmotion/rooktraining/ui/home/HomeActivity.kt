@@ -9,6 +9,7 @@ import com.rookmotion.rooktraining.R
 import com.rookmotion.rooktraining.databinding.ActivityHomeBinding
 import com.rookmotion.rooktraining.state.RMViewModelFactory
 import com.rookmotion.rooktraining.state.UserViewModel
+import com.rookmotion.rooktraining.ui.scanner.SensorScannerActivity
 import com.rookmotion.rooktraining.ui.trainingtype.TrainingTypeActivity
 import com.rookmotion.rooktraining.utils.rmLocator
 import com.rookmotion.rooktraining.utils.toastShort
@@ -110,6 +111,7 @@ class HomeActivity : AppCompatActivity() {
         binding.grantPermissions.isVisible = false
 
         binding.individualTraining.isEnabled = true
+        binding.sensorScanner.isEnabled = true
     }
 
     private fun disablePermissionsScreens() {
@@ -117,6 +119,7 @@ class HomeActivity : AppCompatActivity() {
         binding.grantPermissions.isVisible = true
 
         binding.individualTraining.isEnabled = false
+        binding.sensorScanner.isEnabled = false
     }
 
     private fun initState() {
@@ -135,6 +138,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.individualTraining.setOnClickListener {
             startActivity(Intent(this, TrainingTypeActivity::class.java))
+        }
+
+        binding.sensorScanner.setOnClickListener {
+            startActivity(Intent(this, SensorScannerActivity::class.java))
         }
     }
 }
