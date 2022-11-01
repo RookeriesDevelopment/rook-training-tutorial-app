@@ -69,5 +69,8 @@
         <activity
             android:name=".ui.scanner.SensorScannerActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.training.solo.TrainingSoloActivity"
+            android:exported="false" />
     </application>
 </manifest>

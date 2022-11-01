@@ -28,4 +28,13 @@
     <string name="error_not_supported">This device does not support BLE scanning</string>
     <string name="error_no_resources">Device\'s bluetooth is overloaded</string>
     <string name="error_too_much_scans">Scanning to frecuently, bluetooth is overloaded</string>
+    <string name="choose_a_sensor">Choose a sensor</string>
+    <string name="training_type">Training type</string>
+    <string name="time">Time</string>
+    <string name="heart_rate">Heart rate (bpm)</string>
+    <string name="calories">Calories (kcal)</string>
+    <string name="steps">Steps</string>
+    <string name="jumps">Jumps</string>
+    <string name="heart_effort">Effort</string>
+    <string name="battery_level">Sensor battery level</string>
 </resources>
