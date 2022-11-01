@@ -71,6 +71,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.training.solo.TrainingSoloActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 </manifest>
