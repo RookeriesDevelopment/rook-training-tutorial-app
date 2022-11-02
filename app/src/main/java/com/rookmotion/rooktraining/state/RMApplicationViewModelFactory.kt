@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rookmotion.rooktraining.RookTrainingApplication
 import com.rookmotion.rooktraining.ui.scanner.SensorScannerImp
+import com.rookmotion.rooktraining.ui.training.TrainerImp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,6 +23,15 @@ class RMApplicationViewModelFactory(
                     scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
                 ),
                 sensorRepository = application.rmServiceLocator.sensorRepository
+            ) as T
+        }
+
+        if (modelClass.isAssignableFrom(TrainingSoloViewModel::class.java)) {
+            return TrainingSoloViewModel(
+                trainer = TrainerImp(
+                    context = application.applicationContext,
+                    scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+                )
             ) as T
         }
 
