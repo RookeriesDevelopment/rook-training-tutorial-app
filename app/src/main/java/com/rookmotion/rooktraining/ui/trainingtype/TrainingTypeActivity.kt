@@ -1,17 +1,20 @@
 package com.rookmotion.rooktraining.ui.trainingtype
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.rookmotion.app.sdk.persistence.entities.training.RMTrainingType
+import com.rookmotion.kotlin.sdk.data.mapper.TrainingTypeMapper
 import com.rookmotion.rooktraining.R
 import com.rookmotion.rooktraining.databinding.ActivityTrainingTypeBinding
 import com.rookmotion.rooktraining.state.RMViewModelFactory
 import com.rookmotion.rooktraining.state.TrainingTypeViewModel
+import com.rookmotion.rooktraining.ui.training.TrainingKeys
+import com.rookmotion.rooktraining.ui.training.solo.TrainingSoloActivity
 import com.rookmotion.rooktraining.ui.trainingtype.adapter.TrainingTypeAdapter
 import com.rookmotion.rooktraining.utils.rmLocator
-import com.rookmotion.rooktraining.utils.toastShort
 
 class TrainingTypeActivity : AppCompatActivity() {
 
@@ -41,7 +44,11 @@ class TrainingTypeActivity : AppCompatActivity() {
     }
 
     private fun goToTraining(trainingType: RMTrainingType) {
-        toastShort("WIP")
+        val intent = Intent(this, TrainingSoloActivity::class.java).apply {
+            putExtra(TrainingKeys.TRAINING_TYPE_SELECTED, TrainingTypeMapper.toJson(trainingType))
+        }
+
+        startActivity(intent)
     }
 
     private fun showProgress() {

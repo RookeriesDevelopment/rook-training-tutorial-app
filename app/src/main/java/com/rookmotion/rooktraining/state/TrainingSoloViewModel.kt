@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class TrainingSoloViewModel(private val trainer: TrainerImp) : ViewModel() {
+class TrainingSoloViewModel(val trainer: TrainerImp) : ViewModel() {
 
     private var connectingWith: BluetoothPeripheral? = null
 
