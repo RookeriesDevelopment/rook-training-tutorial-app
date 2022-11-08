@@ -75,6 +75,7 @@ class TrainingSoloActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         if (!isChangingConfigurations) {
+            batteryManager.onDestroy()
             trainingSoloViewModel.releaseTrainingResources()
         }
 
