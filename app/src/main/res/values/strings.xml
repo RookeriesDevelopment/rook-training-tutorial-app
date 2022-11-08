@@ -46,4 +46,17 @@
     <string name="dismiss">Dismiss</string>
     <string name="cancel_training">Cancel training</string>
     <string name="finish_training">Finish training</string>
+    <string name="training_summary">Training summary</string>
+    <string name="basic_information">Basic information</string>
+    <string name="start_date">Start date</string>
+    <string name="summaries">Summaries</string>
+    <string name="individual_records">Individual records</string>
+    <string name="number_of_steps_records">Number of steps records</string>
+    <string name="number_of_hr_records">Number of heart rate records</string>
+    <string name="training_name">Training name</string>
+    <string name="end_date">End date</string>
+    <string name="duration">Duration</string>
+    <string name="effort_min_avg_max_placeholder"><![CDATA[Effort: Min -> %1$s | Avg -> %2$s | Max -> %3$s]]></string>
+    <string name="hr_min_avg_max_placeholder"><![CDATA[Heart rate: Min -> %1$s | Avg -> %2$s | Max -> %3$s]]></string>
+    <string name="remote_training">Remote training</string>
 </resources>
