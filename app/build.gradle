@@ -62,7 +62,7 @@ dependencies {
 
     // RookMotion
     implementation 'com.rookmotion.android:sdk-rook-training:1.4.0'
-    implementation 'com.rookmotion.android:sdk-utils:1.1.0'
+    implementation 'com.rookmotion.android:sdk-utils:1.2.1'
 
     // Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'

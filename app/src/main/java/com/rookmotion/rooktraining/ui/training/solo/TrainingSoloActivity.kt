@@ -21,6 +21,8 @@ import com.rookmotion.rooktraining.ui.scanner.ScannerKeys
 import com.rookmotion.rooktraining.ui.scanner.SensorScannerActivity
 import com.rookmotion.rooktraining.ui.training.SessionType
 import com.rookmotion.rooktraining.ui.training.TrainingKeys
+import com.rookmotion.rooktraining.ui.training.TrainingSummaryKeys
+import com.rookmotion.rooktraining.ui.training.summary.TrainingSummaryActivity
 import com.rookmotion.rooktraining.utils.AppResources
 import com.rookmotion.rooktraining.utils.Dialogs
 import com.rookmotion.rooktraining.utils.setStatusBarColor
@@ -319,6 +321,13 @@ class TrainingSoloActivity : AppCompatActivity() {
         val trainingType = trainingSoloViewModel.trainer.trainingType
         val stepsType = trainingSoloViewModel.getStepsType()
 
+        val intent = Intent(this, TrainingSummaryActivity::class.java).apply {
+            putExtra(TrainingSummaryKeys.START, startTime)
+            putExtra(TrainingSummaryKeys.TRAINING_TYPE, trainingType.trainingName)
+            putExtra(TrainingSummaryKeys.STEPS_TYPE, stepsType.name)
+        }
+
+        startActivity(intent)
         finish()
     }
 }
