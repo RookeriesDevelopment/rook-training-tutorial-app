@@ -31,7 +31,8 @@ class RMApplicationViewModelFactory(
                 trainer = TrainerImp(
                     context = application.applicationContext,
                     scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-                )
+                ),
+                rm = application.rmServiceLocator.rm
             ) as T
         }
 

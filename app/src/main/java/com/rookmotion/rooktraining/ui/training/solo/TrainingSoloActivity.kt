@@ -29,7 +29,9 @@ import com.rookmotion.rooktraining.utils.setStatusBarColor
 import com.rookmotion.rooktraining.utils.toastShort
 import com.rookmotion.utils.sdk.format.TimeFormatter
 import com.rookmotion.utils.sdk.permissions.BatteryManager
+import com.rookmotion.utils.sdk.permissions.PermissionsManager
 import com.welie.blessed.BluetoothPeripheral
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 import kotlin.math.roundToInt
 
@@ -44,6 +46,8 @@ class TrainingSoloActivity : AppCompatActivity() {
         RMApplicationViewModelFactory(application as RookTrainingApplication)
     }
 
+    private val permissionsManager = PermissionsManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTrainingSoloBinding.inflate(layoutInflater)
@@ -53,6 +57,12 @@ class TrainingSoloActivity : AppCompatActivity() {
             componentActivity = this,
             onSuccess = { toastShort(getString(R.string.thanks)) },
             onFailure = { Timber.w("User rejected disabling battery optimizations") }
+        )
+
+        permissionsManager.registerBluetoothPermissionsListener(
+            this,
+            onAllowed = { trainingSoloViewModel.checkAndStartUnfinishedTraining() },
+            onDenied = { finish() }
         )
 
         if (!batteryManager.isIgnoringBatteryOptimizations(this)) {
@@ -73,9 +83,17 @@ class TrainingSoloActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (!permissionsManager.hasBluetoothPermissions(this)) {
+            permissionsManager.requestBluetoothPermissions()
+        }
+    }
+
     override fun onDestroy() {
         if (!isChangingConfigurations) {
             batteryManager.onDestroy()
+            permissionsManager.onDestroy()
             trainingSoloViewModel.releaseTrainingResources()
         }
 
@@ -210,6 +228,12 @@ class TrainingSoloActivity : AppCompatActivity() {
                 Timber.i("Band contact: ${it.name}")
             }
         }
+
+        lifecycleScope.launchWhenResumed {
+            trainingSoloViewModel.isActive.collectLatest {
+                updateControlButtons()
+            }
+        }
     }
 
     private fun initActions() {
@@ -224,16 +248,13 @@ class TrainingSoloActivity : AppCompatActivity() {
                 trainingSoloViewModel.startTraining()
             }
 
-            binding.play.isVisible = false
-            binding.pause.isVisible = true
-            binding.stop.isVisible = true
+            updateControlButtons()
         }
 
         binding.pause.setOnClickListener {
             trainingSoloViewModel.pauseTraining()
 
-            binding.play.isVisible = true
-            binding.pause.isVisible = false
+            updateControlButtons()
         }
 
         binding.stop.setOnClickListener { showStopTrainingDialog() }

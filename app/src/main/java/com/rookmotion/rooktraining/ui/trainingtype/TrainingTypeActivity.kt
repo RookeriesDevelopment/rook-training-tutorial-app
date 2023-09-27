@@ -24,6 +24,12 @@ class TrainingTypeActivity : AppCompatActivity() {
         RMViewModelFactory(rmLocator)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        println("----------------------------TrainingTypeActivity----------------------------onDestroy-----------------------------")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTrainingTypeBinding.inflate(layoutInflater)
